@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Jaini+Purva"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>Agrilink</title>
+  </head>
+  <body>
+    <div id="app">
+      <!-- Header -->
+      <header>
+        <!-- i want h1 to not showed when logging or signuping up -->
+        <h1 @click="goToHome">Agrilink</h1>
+
+        <div v-if="!isLoggedIn">
+          <button @click="currentPage = 'signup'">Signup</button>
+          <button @click="currentPage = 'login'">Login</button>
+        </div>
+        <div v-else>
+          <button @click="logout">Logout</button>
+        </div>
+      </header>
+      <!-- Notification Container -->
+      <div
+        v-if="notification.message"
+        :class="['notification', notification.type]"
+      >
+        {{ notification.message }}
+      </div>
+      <!-- Login Page -->
+      <div v-if="currentPage === 'login'" class="auth-page">
+        <input type="text" v-model="loginUsername" placeholder="Username" />
+        <input type="password" v-model="loginPassword" placeholder="Password" />
+        <button @click="login">Login</button>
+        <p>
+          Don't have an account?
+          <a @click="currentPage = 'signup'">Sign up</a>
+        </p>
+      </div>
+
+      <!-- Signup Page -->
+      <div v-if="currentPage === 'signup'" class="auth-page">
+        <input
+          type="text"
+          v-model="signupFirstName"
+          placeholder="First Name"
+          required
+        />
+        <input
+          type="text"
+          v-model="signupLastName"
+          placeholder="Last Name"
+          required
+        />
+        <input
+          type="text"
+          v-model="signupUsername"
+          placeholder="Username"
+          required
+        />
+        <input
+          type="email"
+          v-model="signupEmail"
+          placeholder="Email"
+          required
+        />
+        <input
+          type="password"
+          v-model="signupPassword"
+          placeholder="Password"
+          required
+        />
+        <button @click="signup">Sign Up</button>
+        <p>
+          Already have an account?
+          <a @click="currentPage = 'login'">Login</a>
+        </p>
+      </div>
+
+      <!-- Home Page (Default) -->
+      <div v-if="currentPage === 'home'">
+        <!-- Welcome Message for Logged-in Users
+        <div v-if="isLoggedIn" class="welcome-message">
+          Welcome, {{ loggedInUser }}!
+        </div> -->
+        <!-- Add Product Button (for logged-in users) -->
+        <!-- <div v-if="isLoggedIn" class="add-product">
+          <button @click="showAddProductForm = true">Add Product</button>
+        </div> -->
+
+        <div class="container">
+          <div v-if="!isLoggedIn">
+            <h2>Connect with Local Farmers & Buy Fresh Produce</h2>
+            <input
+              type="tex"
+              v-model="searchQuery"
+              placeholder="Search items"
+            />
+          </div>
+          <!-- Product List -->
+          <div class="product-list">
+            <div
+              class="product"
+              v-for="product in filteredProducts"
+              :key="product.id"
+              @click="selectProduct(product)"
+            >
+              <img :src="product.imageURL" />
+              <div class="product-content">
+                <h3>{{ product.productName }}</h3>
+                <p>${{ product.price }}/kg</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contact Us Section -->
+          <div v-if="!isLoggedIn" class="contact-us">
+            <h2>Contact Us</h2>
+            <p>
+              Say Hello send us your thoughts about our products or share your
+              ideas with our Team! We would love to hear from you.
+              <br />
+            </p>
+            <form @submit.prevent="sendEmail">
+              <input
+                type="text"
+                v-model="lastName"
+                placeholder="Last name"
+                required
+              />
+              <input
+                type="email"
+                v-model="email"
+                placeholder="Email"
+                required
+              />
+              <input
+                type="text"
+                v-model="subject"
+                placeholder="Subject"
+                required
+              />
+              <textarea
+                v-model="message"
+                placeholder="Message"
+                required
+              ></textarea>
+              <button type="submit">Send</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- Product Details Page -->
+      <div v-if="currentPage === 'selectProduct'" class="product-details">
+        <img :src="selectedProduct.imageURL" />
+        <h3>{{ selectedProduct.productName }}</h3>
+        <p><strong>Price:</strong> ${{ selectedProduct.price }}/kg</p>
+        <p><strong>Description:</strong> {{ selectedProduct.description }}</p>
+        <p><strong>Location:</strong> {{ selectedProduct.location }}</p>
+        <!-- <p><strong>Seller's Name:</strong> {{ selectedProduct.sellerName }}</p>
+        <p>
+          <strong>Seller's Phone:</strong> {{ selectedProduct.sellerPhone }}
+        </p> -->
+        <label for="quantity"><strong>Quantity:</strong></label>
+        <select id="quantity" v-model="selectedQuantity">
+          <option value="1kg">1kg</option>
+          <option value="5kg">5kg</option>
+          <option value="10kg">10kg</option>
+        </select>
+        <p>
+          <strong>Seller:</strong> {{ selectedProduct.owner.firstName }} {{
+          selectedProduct.owner.lastName }}
+        </p>
+        <p><strong>Contact:</strong> {{ selectedProduct.owner.email }}</p>
+        <button @click="sendRequest" class="send">Send Request</button>
+        <button @click="goBack" class="back">Back</button>
+
+        <!-- Edit and Delete Buttons (for logged-in users) -->
+        <div v-if="isLoggedIn" class="product-actions">
+          <button @click="showEditProductForm = true">Edit Product</button>
+          <button @click="deleteProduct(selectedProduct._id)">
+            Delete Product
+          </button>
+        </div>
+
+        <!-- Edit Product Form (for logged-in users) -->
+        <div v-if="showEditProductForm" class="edit-product-form">
+          <h3>Edit Product</h3>
+          <form @submit.prevent="updateProduct">
+            <input
+              type="text"
+              v-model="selectedProduct.productName"
+              placeholder="Product Name"
+              required
+            />
+            <input
+              type="text"
+              v-model="selectedProduct.description"
+              placeholder="Description"
+              required
+            />
+            <input
+              type="number"
+              v-model="selectedProduct.price"
+              placeholder="Price"
+              required
+            />
+            <input
+              type="text"
+              v-model="selectedProduct.imageURL"
+              placeholder="Image URL"
+              required
+            />
+            <input
+              type="text"
+              v-model="selectedProduct.location"
+              placeholder="Location"
+              required
+            />
+            <input
+              type="number"
+              v-model="selectedProduct.quantity"
+              placeholder="Quantity"
+              required
+            />
+            <button type="submit">Update Product</button>
+            <button type="button" @click="showEditProductForm = false">
+              Cancel
+            </button>
+          </form>
+        </div>
+      </div>
+      <!-- Dashboard Page -->
+      <div v-if="currentPage === 'dashboard'">
+        <h2>Welcome, {{ loggedInUser }}!</h2>
+        <h3>Your Products</h3>
+        <!-- Show a message if no products are found -->
+        <div v-if="farmerProducts.length === 0">
+          <p>You haven't added any products yet.</p>
+        </div>
+        <div v-else>
+          <p>You have {{ farmerProducts.length }} products in your account.</p>
+        </div>
+
+        <!-- Add Product Button -->
+        <div class="add-product">
+          <button @click="showAddProductForm = true">Add Product</button>
+        </div>
+      </div>
+      <!-- Display the farmer's products -->
+      <div class="product-list">
+        <div
+          class="product"
+          v-for="product in farmerProducts"
+          :key="product.id"
+          @click="selectProduct(product)"
+        >
+          <img :src="product.imageURL" />
+          <div class="product-content">
+            <h3>{{ product.productName }}</h3>
+            <p>${{ product.price }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add Product Form (for logged-in users) -->
+      <div v-if="showAddProductForm" class="add-product-form">
+        <h3>Add Product</h3>
+        <form @submit.prevent="addProduct">
+          <input
+            type="text"
+            v-model="newProduct.productName"
+            placeholder="Product Name"
+            required
+          />
+          <input
+            type="text"
+            v-model="newProduct.description"
+            placeholder="Description"
+            required
+          />
+          <div class="price-input-container">
+            <input
+              type="number"
+              v-model="newProduct.price"
+              placeholder="Price"
+              required
+            />
+            <p>/kg</p>
+          </div>
+
+          <input
+            type="text"
+            v-model="newProduct.imageURL"
+            placeholder="Image URL"
+            required
+          />
+          <input
+            type="text"
+            v-model="newProduct.location"
+            placeholder="Location"
+            required
+          />
+          <!-- Seller's Name -->
+          <input
+            type="text"
+            v-model="newProduct.sellerName"
+            placeholder="Seller's Name"
+            required
+          />
+
+          <!-- Seller's Phone Number -->
+          <input
+            type="text"
+            v-model="newProduct.sellerPhone"
+            placeholder="Seller's Phone Number"
+            required
+          />
+          <select id="quantity" v-model="selectedQuantity">
+            <option value="1kg">1kg</option>
+            <option value="5kg">5kg</option>
+            <option value="10kg">10kg</option>
+          </select>
+          <button type="submit">Add Product</button>
+          <button type="button" @click="showAddProductForm = false">
+            Cancel
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <p>&copy;2025 Agrilink</p>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>

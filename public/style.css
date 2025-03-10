@@ -1,0 +1,373 @@
+body {
+  font-family: "Inika", serif;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+header {
+  font-family: "Jaini Purva";
+  color: #1db0ea;
+  padding: 10px 20px;
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 25px;
+  font-weight: lighter;
+}
+a {
+  color: #1db0ea;
+  cursor: pointer;
+}
+p {
+  font-family: "Inika", serif;
+  font-size: 16px;
+  text-align: center;
+}
+h2 {
+  font-size: 30px;
+  text-align: center;
+}
+h3 {
+  font-family: "Jaini Purva";
+  color: #1db0ea;
+  font-size: 50px;
+  text-align: center;
+}
+header h1 {
+  margin: 0;
+  cursor: pointer;
+}
+header button {
+  background-color: #1db0ea;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 50px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+.container {
+  padding: 20px;
+  text-align: center;
+}
+.container h2 {
+  color: black;
+  font-weight: lighter;
+}
+input {
+  width: 50%;
+  height: 20px;
+  padding: 10px;
+  border: 1px solid #000000;
+  border-radius: 50px;
+  margin-bottom: 20px;
+}
+
+.product-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+.product {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.product:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+.product img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+.product-content {
+  padding: 15px;
+}
+.product h3 {
+  margin: 0 0 10px;
+  font-size: 18px;
+  color: #333;
+}
+.product p {
+  margin: 0 0 10px;
+  font-size: 14px;
+  color: #666;
+}
+.product button {
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 16px;
+  transition: background-color 0.2s;
+}
+
+footer {
+  font-family: "Jaini Purva";
+  color: #1db0ea;
+  padding: 10px 20px;
+  text-align: center;
+  width: 100%;
+}
+
+.product img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+.product-content {
+  padding: 15px;
+}
+.product h3 {
+  margin: 0 0 10px;
+  font-size: 18px;
+  color: #333;
+}
+.product p {
+  margin: 0;
+  font-size: 16px;
+  color: #1db0ea;
+  font-weight: bold;
+}
+.product-details {
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 20px auto;
+}
+.product-details img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+.product-details h3 {
+  margin: 0 0 10px;
+  font-size: 24px;
+  color: #333;
+}
+.product-details p {
+  font-size: 16px;
+  color: #000000;
+}
+.product-details select {
+  width: 70px;
+  padding: 6px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  text-align: center;
+}
+.product-details button {
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 50px;
+  font-size: 16px;
+  display: block;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+.send {
+  background-color: rgb(4, 110, 4);
+}
+.back {
+  background-color: #1db0ea;
+}
+
+/* Contact Us Section */
+.contact-us {
+  background-color: #f9f9f9;
+  padding: 40px 20px;
+  text-align: center;
+}
+.contact-us h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+.contact-us p {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 20px;
+}
+.contact-us form {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+.contact-us input,
+.contact-us textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 15px;
+  font-family: "Inika", serif;
+}
+.contact-us textarea {
+  height: 150px;
+}
+.contact-us button {
+  background-color: #1db0ea;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  text-align: center;
+}
+.contact-us button:hover {
+  background-color: #1db0ea;
+}
+
+.add-product-form,
+.edit-product-form {
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 50px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+.add-product {
+  text-align: center; /* Center the button */
+  margin-top: 20px; /* Add some space at the top */
+  padding: 20px; /* Add some padding */
+}
+
+.add-product button {
+  background-color: #1db0ea;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 50px;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 0 auto; /* Center the button */
+}
+
+.welcome-message {
+  text-align: center;
+  font-size: 30px;
+  color: black;
+  margin-top: 20px;
+  font-family: "inika", serif;
+}
+
+.auth-page {
+  max-width: 500px;
+  margin: 50px auto;
+  padding: 60px;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+textarea,
+select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 30px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  text-align: center;
+}
+
+button {
+  background-color: #1db0ea;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 50px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+/* notifications */
+.notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 15px 20px;
+  border-radius: 5px;
+  color: white;
+  z-index: 1000;
+  animation: fadeIn 0.5s, fadeOut 0.5s 2.5s;
+}
+
+.notification.success {
+  background-color: #4caf50; /* Green */
+}
+
+.notification.error {
+  background-color: #f44336; /* Red */
+}
+
+.notification.info {
+  background-color: #2196f3; /* Blue */
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
+.price-input-container {
+  display: flex;
+  align-items: center;
+  gap: 5px; /* Adjust the gap between the input and the text */
+}
+
+.price-input-container input {
+  width: 400px; /* Adjust the width as needed */
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.price-input-container p {
+  font-size: 20px;
+  color: #000000;
+}
