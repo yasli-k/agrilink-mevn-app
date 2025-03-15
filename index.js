@@ -9,7 +9,7 @@ const app = express();
 
 const allowedOrigins = [
   "http://localhost:8080", // For local dev
-  "https://s25-midterm-project-yasli-k.onrender.com", // Replace with your actual frontend URL
+  "https://s25-midterm-project-yasli-k.onrender.com", // For Render
 ];
 app.use(
   cors({

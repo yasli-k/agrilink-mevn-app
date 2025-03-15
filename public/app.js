@@ -58,7 +58,7 @@ Vue.createApp({
 
     //login
     login() {
-      fetch("http://localhost:8080/session", {
+      fetch("https://s25-midterm-project-yasli-k.onrender.com/session", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -91,7 +91,7 @@ Vue.createApp({
     },
     //signup
     signup() {
-      fetch("http://localhost:8080/farmer", {
+      fetch("https://s25-midterm-project-yasli-k.onrender.com/farmer", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -131,7 +131,7 @@ Vue.createApp({
 
     //logout
     logout() {
-      fetch("http://localhost:8080/session", {
+      fetch("https://s25-midterm-project-yasli-k.onrender.com/session", {
         method: "DELETE",
         credentials: "include",
       })
@@ -162,7 +162,7 @@ Vue.createApp({
     async selectProduct(product) {
       try {
         const response = await fetch(
-          `http://localhost:8080/products/${product._id}`
+          `https://s25-midterm-project-yasli-k.onrender.com/products/${product._id}`
         );
         if (response.ok) {
           const productWithOwner = await response.json();
@@ -187,19 +187,24 @@ Vue.createApp({
     },
     //fetching products
     fetchProducts() {
-      fetch("http://localhost:8080/products").then((response) => {
-        response.json().then((products) => {
-          console.log(products);
-          this.products = products;
-        });
-      });
+      fetch("https://s25-midterm-project-yasli-k.onrender.com/products").then(
+        (response) => {
+          response.json().then((products) => {
+            console.log(products);
+            this.products = products;
+          });
+        }
+      );
     },
     //fetching farmer products
     fetchFarmerProducts() {
-      fetch("http://localhost:8080/farmer/products", {
-        method: "GET",
-        credentials: "include", // Include cookies for session authentication
-      })
+      fetch(
+        "https://s25-midterm-project-yasli-k.onrender.com/farmer/products",
+        {
+          method: "GET",
+          credentials: "include", // Include cookies for session authentication
+        }
+      )
         .then((response) => {
           if (response.ok) {
             return response.json();
@@ -217,7 +222,7 @@ Vue.createApp({
 
     //creating products
     addProduct() {
-      fetch("http://localhost:8080/products", {
+      fetch("https://s25-midterm-project-yasli-k.onrender.com/products", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -268,13 +273,16 @@ Vue.createApp({
 
     //updating/editing a product
     updateProduct() {
-      fetch(`http://localhost:8080/products/${this.selectedProduct._id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(this.selectedProduct),
-      })
+      fetch(
+        `https://s25-midterm-project-yasli-k.onrender.com/products/${this.selectedProduct._id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(this.selectedProduct),
+        }
+      )
         .then((response) => {
           if (response.ok) {
             this.showNotification("Product updated successfully!");
@@ -291,7 +299,7 @@ Vue.createApp({
 
     //deleting products
     deleteProduct(productId) {
-      fetch(`http://localhost:8080/products/${productId}`, {
+      fetch(`https://s25-midterm-project-yasli-k.onrender.com/${productId}`, {
         method: "DELETE",
       })
         .then((response) => {
