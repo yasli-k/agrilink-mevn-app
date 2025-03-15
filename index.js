@@ -2,13 +2,24 @@ const express = require("express");
 const cors = require("cors");
 const model = require("./model");
 const session = require("express-session");
+const MongoStore = require("connect-mongo");
 
 const app = express();
 // const port = process.env.PORT || 8080;
 
+const allowedOrigins = [
+  "http://localhost:8080", // For local dev
+  "https://your-frontend.onrender.com", // Replace with your actual frontend URL
+];
 app.use(
   cors({
-    origin: "http://localhost:8080",
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
   })
 );
@@ -20,6 +31,10 @@ app.use(
     secret: "fdejrwufhu4yhe",
     saveUninitialized: true,
     resave: false,
+    store: MongoStore.create({
+      mongoUrl: process.env.DBPASSWORDS, // Your MongoDB connection string
+      collectionName: "sessions", // Optional: custom collection name
+    }),
   })
 );
 
@@ -235,6 +250,7 @@ app.delete("/products/:productid", AuthMiddleware, async (req, res) => {
   }
 });
 
-app.listen(8080, () => {
-  console.log("Server is running on port 8080");
+const port = process.env.PORT || 8080;
+app.listen(port, "0.0.0.0", () => {
+  console.log(`Server is running on port ${port}`);
 });

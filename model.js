@@ -6,7 +6,15 @@ require("dotenv").config();
 // console.log(process.env);
 
 // console.log("DBPASSWORDS:", process.env.DBPASSWORDS);
-mongoose.connect(process.env.DBPASSWORDS);
+// Log the URI to debug
+console.log("MongoDB URI:", process.env.DBPASSWORDS);
+mongoose
+  .connect(process.env.DBPASSWORDS, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("Connected to MongoDB"))
+  .catch((err) => console.error("MongoDB connection error:", err));
 
 const farmerSchema = new Schema({
   firstName: {
