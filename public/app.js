@@ -233,6 +233,8 @@ Vue.createApp({
           if (response.ok) {
             this.showNotification("Product added successfully!");
             this.fetchProducts();
+            this.fetchFarmerProducts();
+            // Reset the form fields
             this.newProduct = {
               productName: "",
               description: "",
@@ -287,6 +289,7 @@ Vue.createApp({
           if (response.ok) {
             this.showNotification("Product updated successfully!");
             this.fetchProducts();
+            this.fetchFarmerProducts();
             this.showEditProductForm = false;
           } else {
             this.showNotification("Failed to update product.", "error");
@@ -299,13 +302,17 @@ Vue.createApp({
 
     //deleting products
     deleteProduct(productId) {
-      fetch(`https://s25-midterm-project-yasli-k.onrender.com/${productId}`, {
-        method: "DELETE",
-      })
+      fetch(
+        `https://s25-midterm-project-yasli-k.onrender.com/products/${productId}`,
+        {
+          method: "DELETE",
+        }
+      )
         .then((response) => {
           if (response.ok) {
             this.showNotification("Product deleted successfully!");
             this.fetchProducts();
+            this.fetchFarmerProducts();
             this.selectedProduct = null;
           } else {
             this.showNotification("Failed to delete product.", "error");
