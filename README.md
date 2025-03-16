@@ -117,6 +117,11 @@ The application is deployed on Render at:
 3. **Manage Products**: Logged-in farmers can add, edit, or delete their products from the dashboard.
 4. **Contact**: Use the contact form to send inquiries (opens the user's email client).
 
+## Design Mockups
+
+The initial design mockups for this project were created in Figma and can be viewed here:  
+[https://www.figma.com/design/r8Z0chIdnSKtaklkHUnv4K/farmers?node-id=0-1&p=f&t=VMoxOYwAw1qVPhVA-0](https://www.figma.com/design/r8Z0chIdnSKtaklkHUnv4K/farmers?node-id=0-1&p=f&t=VMoxOYwAw1qVPhVA-0)
+
 ## Author
 
 Yasli K.
