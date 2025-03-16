@@ -167,8 +167,10 @@
         <p>
           <strong>Seller's Phone:</strong> {{ selectedProduct.sellerPhone }}
         </p> -->
-        <label for="quantity"><strong>Quantity:</strong></label>
-        <select id="quantity" v-model="selectedQuantity">
+        <label v-if="!isLoggedIn" for="quantity"
+          ><strong>Quantity:</strong></label
+        >
+        <select v-if="!isLoggedIn" id="quantity" v-model="selectedQuantity">
           <option value="1kg">1kg</option>
           <option value="5kg">5kg</option>
           <option value="10kg">10kg</option>
@@ -178,7 +180,9 @@
           selectedProduct.owner.lastName }}
         </p>
         <p><strong>Contact:</strong> {{ selectedProduct.owner.email }}</p>
-        <button @click="sendRequest" class="send">Send Request</button>
+        <button v-if="!isLoggedIn" @click="sendRequest" class="send">
+          Send Request
+        </button>
         <button @click="goBack" class="back">Back</button>
 
         <!-- Edit and Delete Buttons (for logged-in users) -->
