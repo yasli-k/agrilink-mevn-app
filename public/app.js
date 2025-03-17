@@ -52,7 +52,7 @@ Vue.createApp({
   methods: {
     //home
     goToHome() {
-      this.currentPage = "home";
+      this.currentPage = this.isLoggedIn ? "dashboard" : "home";
       this.selectedProduct = null;
     },
 
