@@ -243,9 +243,9 @@
       <!-- Dashboard Page -->
       <div v-if="currentPage === 'dashboard'">
         <h2>Welcome, farmer {{ loggedInUser }}!</h2>
-        <h3>Your Products</h3>
+        <!-- <h3>Your Products</h3> -->
         <!-- Show a message if no products are found -->
-        <div v-if="farmerProducts.length === 0">
+        <div v-if="farmerProducts.length === 0" class="productD">
           <p>You haven't added any products yet.</p>
         </div>
         <div v-else>
