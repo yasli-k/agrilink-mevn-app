@@ -20,7 +20,7 @@ a {
   cursor: pointer;
 }
 p {
-  font-family: "Inika", serif;
+  font-family: "sans-serif";
   font-size: 16px;
   text-align: center;
 }
@@ -371,7 +371,4 @@ button:hover {
 .price-input-container p {
   font-size: 20px;
   color: #000000;
-}
-.productD {
-  font-size: 40px;
 }
