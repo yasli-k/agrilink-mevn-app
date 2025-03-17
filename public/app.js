@@ -178,7 +178,7 @@ Vue.createApp({
     },
     goBack() {
       this.selectedProduct = null;
-      this.currentPage = "home";
+      this.currentPage = this.isLoggedIn ? "dashboard" : "home";
     },
     sendRequest() {
       if (this.selectedProduct && this.selectedQuantity) {
