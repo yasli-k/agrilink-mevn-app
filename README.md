@@ -1,4 +1,4 @@
-# AgriLink - Midterm Project
+# AgriLink 
 
 ## Project Overview
 
